@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AirIcon from "@mui/icons-material/Air";
-import { Opacity, Search, Thunderstorm } from "@mui/icons-material";
+import { Opacity, Search } from "@mui/icons-material";
 import CompressIcon from "@mui/icons-material/Compress";
 
 import storm from "./Images/storm.png";
@@ -14,6 +14,8 @@ import snow from "./Images/snowy.png";
 import clear from "./Images/sunny.png";
 import cloud from "./Images/cloudy.png";
 import wind from "./Images/wind.png";
+import mist from "./Images/mist.png";
+import ghost from "./Images/ghost.png";
 
 const WeatherComponent: React.FC = () => {
   const [weatherData, setWeatherData] = useState<any>(null);
@@ -62,7 +64,7 @@ const WeatherComponent: React.FC = () => {
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      handleLocationSubmit({ preventDefault: () => {} }); 
+      handleLocationSubmit({ preventDefault: () => {} });
     }
   };
 
@@ -86,7 +88,6 @@ const WeatherComponent: React.FC = () => {
   };
 
   const getImageForWeather = (weather: any) => {
-
     if (weather >= 200 && weather <= 240) {
       return storm;
     } else if (weather >= 300 && weather <= 330) {
@@ -103,6 +104,8 @@ const WeatherComponent: React.FC = () => {
       return cloud;
     } else if (weather == 741) {
       return wind;
+    } else if (weather == 701) {
+      return mist;
     } else {
       return wind;
     }
@@ -115,7 +118,7 @@ const WeatherComponent: React.FC = () => {
           <Stack gap={2}>
             <Box sx={{ width: "150px", height: "150px", alignSelf: "center" }}>
               <img
-                src="https://cdn-icons-gif.flaticon.com/10826/10826759.gif"
+                src={ghost}
                 style={{ width: "100%", objectFit: "contain" }}
                 alt=""
               />
@@ -168,14 +171,14 @@ const WeatherComponent: React.FC = () => {
           value={location}
           onChange={handleLocationChange}
           variant="standard"
-          sx={{color: "white"}}
+          sx={{ color: "white" }}
           onKeyDown={handleKeyPress}
         />
         <Button
           type="button"
           variant="contained"
           onClick={handleLocationSubmit}
-          sx={{borderRadius: "50px"}}
+          sx={{ borderRadius: "50px" }}
         >
           <Search />
         </Button>
