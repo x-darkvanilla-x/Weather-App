@@ -3,8 +3,17 @@ import React, { useEffect, useState } from "react";
 
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AirIcon from "@mui/icons-material/Air";
-import { Opacity, Search } from "@mui/icons-material";
+import { Opacity, Search, Thunderstorm } from "@mui/icons-material";
 import CompressIcon from "@mui/icons-material/Compress";
+
+import storm from "./Images/storm.png";
+import drizzle from "./Images/drizzle.png";
+import rain from "./Images/rainy.png";
+import freeze from "./Images/freeze.png";
+import snow from "./Images/snowy.png";
+import clear from "./Images/sunny.png";
+import cloud from "./Images/cloudy.png";
+import wind from "./Images/wind.png";
 
 const WeatherComponent: React.FC = () => {
   const [weatherData, setWeatherData] = useState<any>(null);
@@ -50,6 +59,13 @@ const WeatherComponent: React.FC = () => {
     }
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleLocationSubmit({ preventDefault: () => {} }); 
+    }
+  };
+
   const fetchWeatherByLocation = async (location: string) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`;
     try {
@@ -70,25 +86,25 @@ const WeatherComponent: React.FC = () => {
   };
 
   const getImageForWeather = (weather: any) => {
-    console.log(typeof weather);
+
     if (weather >= 200 && weather <= 240) {
-      return "https://cdn-icons-gif.flaticon.com/6455/6455012.gif";
+      return storm;
     } else if (weather >= 300 && weather <= 330) {
-      return "https://cdn-icons-gif.flaticon.com/6455/6455057.gif";
+      return drizzle;
     } else if (weather >= 500 && weather <= 540 && weather != 511) {
-      return "https://cdn-icons-gif.flaticon.com/6455/6455057.gif";
+      return rain;
     } else if (weather == 511) {
-      return "https://cdn-icons-gif.flaticon.com/6455/6455058.gif";
+      return freeze;
     } else if (weather >= 600 && weather <= 630) {
-      return "https://cdn-icons-gif.flaticon.com/13374/13374514.gif";
+      return snow;
     } else if (weather == 800) {
-      return "https://cdn-icons-gif.flaticon.com/11708/11708870.gif";
+      return clear;
     } else if (weather >= 801 && weather <= 804) {
-      return "https://cdn-icons-gif.flaticon.com/6455/6455053.gif";
+      return cloud;
     } else if (weather == 741) {
-      return "https://cdn-icons-gif.flaticon.com/6454/6454995.gif";
+      return wind;
     } else {
-      return "https://cdn-icons-gif.flaticon.com/6455/6455010.gif";
+      return wind;
     }
   };
 
@@ -122,6 +138,7 @@ const WeatherComponent: React.FC = () => {
             label="Enter location"
             value={location}
             onChange={handleLocationChange}
+            onKeyDown={handleKeyPress}
           />
           <Button
             type="button"
@@ -136,10 +153,35 @@ const WeatherComponent: React.FC = () => {
   }
 
   return (
-    <Stack gap={3} textAlign={"center"}>
-      <Typography variant="h6">
-        {weatherData.name} ( {weatherData.coord.lon} , {weatherData.coord.lat} ){" "}
-      </Typography>
+    <Stack gap={2} textAlign={"center"}>
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+        gap={1}
+      >
+        <TextField
+          type="text"
+          placeholder="Enter location"
+          value={location}
+          onChange={handleLocationChange}
+          variant="standard"
+          sx={{color: "white"}}
+          onKeyDown={handleKeyPress}
+        />
+        <Button
+          type="button"
+          variant="contained"
+          onClick={handleLocationSubmit}
+          sx={{borderRadius: "50px"}}
+        >
+          <Search />
+        </Button>
+      </Stack>
+
+      <Typography variant="body1" style={{}}></Typography>
 
       <Box sx={{ width: "150px", height: "150px", alignSelf: "center" }}>
         <img
@@ -149,8 +191,19 @@ const WeatherComponent: React.FC = () => {
         />
       </Box>
 
-      <Typography variant="body1" style={{}}>
-        {weatherData.weather[0].main}
+      <Typography variant="h4" gap={1}>
+        {weatherData.main.temp}°c
+      </Typography>
+
+      <Typography variant="h6">
+        {weatherData.name ? (
+          <> {weatherData.name} </>
+        ) : (
+          <>
+            {" "}
+            {weatherData.coord.lon}, {weatherData.coord.lat}{" "}
+          </>
+        )}
       </Typography>
 
       <Stack
@@ -165,7 +218,7 @@ const WeatherComponent: React.FC = () => {
           gap={1}
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <DeviceThermostatIcon /> {weatherData.main.temp}°C
+          <DeviceThermostatIcon /> {weatherData.weather[0].main}
         </Typography>
         <Typography
           gap={1}
@@ -197,29 +250,6 @@ const WeatherComponent: React.FC = () => {
         >
           <CompressIcon /> {weatherData.main.pressure}
         </Typography>
-      </Stack>
-
-      <Stack
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-        gap={1}
-      >
-        <TextField
-          type="text"
-          placeholder="Enter location"
-          value={location}
-          onChange={handleLocationChange}
-        />
-        <Button
-          type="button"
-          variant="contained"
-          onClick={handleLocationSubmit}
-        >
-          <Search />
-        </Button>
       </Stack>
     </Stack>
   );

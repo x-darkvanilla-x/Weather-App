@@ -12,7 +12,15 @@ export const App = () => {
         minHeight: "100vh",
       }}
     >
-      <Card sx={{ maxWidth: 345 }}>
+      <Card
+        sx={{
+          maxWidth: 345,
+          background:
+            "linear-gradient(135deg, #00feba, #5b548a)",
+          borderRadius: "10px",
+          color: "white"
+        }}
+      >
         <CardContent>
           <WeatherApp />
         </CardContent>
