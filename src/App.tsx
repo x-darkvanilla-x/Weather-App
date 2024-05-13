@@ -3,11 +3,14 @@ import WeatherApp from "./WeatherApp";
 import { Box, Card, CardContent } from "@mui/material";
 
 import AOS from "aos";
+import "aos/dist/aos.css";
+
 import { useEffect } from "react";
 
 export const App = () => {
   useEffect(() => {
-    AOS.init();
+    AOS.init({ offset: 200, duration: 1000 });
+    AOS.refresh();
   }, []);
 
   return (
