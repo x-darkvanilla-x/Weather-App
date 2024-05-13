@@ -46,10 +46,3 @@ To use the OpenWeatherMap API, you need to obtain an API key from their website.
 ## Credits
 
 - Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
-
-You can customize this template to fit your specific project requirements and add more details as needed.
