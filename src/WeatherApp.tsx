@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AirIcon from "@mui/icons-material/Air";
-import { Opacity, Search } from "@mui/icons-material";
+import {Opacity, Search } from "@mui/icons-material";
 import CompressIcon from "@mui/icons-material/Compress";
 
 import storm from "./Images/storm.png";
@@ -113,7 +113,7 @@ const WeatherComponent: React.FC = () => {
 
   if (!weatherData) {
     return (
-      <Stack gap={2} textAlign={"center"}>
+      <Stack gap={2} textAlign={"center"} sx={{padding: "10px"}}>
         {error ? (
           <Stack gap={2}>
             <Box sx={{ width: "150px", height: "150px", alignSelf: "center" }}>
@@ -130,35 +130,6 @@ const WeatherComponent: React.FC = () => {
           <Typography variant="body1">Loading...</Typography>
         )}
         <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-          }}
-          gap={1}
-        >
-          <TextField
-            type="text"
-            label="Enter location"
-            value={location}
-            onChange={handleLocationChange}
-            onKeyDown={handleKeyPress}
-          />
-          <Button
-            type="button"
-            variant="contained"
-            onClick={handleLocationSubmit}
-          >
-            <Search />
-          </Button>
-        </Stack>
-      </Stack>
-    );
-  }
-
-  return (
-    <Stack gap={2} textAlign={"center"}>
-      <Stack
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -179,7 +150,38 @@ const WeatherComponent: React.FC = () => {
           type="button"
           variant="contained"
           onClick={handleLocationSubmit}
-          sx={{ borderRadius: "50px" }}
+          sx={{ borderRadius: "50px", backgroundColor: "white", color: "black"}}
+        >
+          <Search />
+        </Button>
+      </Stack>
+      </Stack>
+    );
+  }
+
+  return (
+    <Stack gap={2} textAlign={"center"} sx={{padding: "10px"}}>
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+        gap={1}
+      >
+        <TextField
+          type="text"
+          placeholder="Enter location"
+          value={location}
+          onChange={handleLocationChange}
+          variant="standard"
+          onKeyDown={handleKeyPress}
+        />
+        <Button
+          type="button"
+          variant="contained"
+          onClick={handleLocationSubmit}
+          sx={{ borderRadius: "50px", backgroundColor: "white", color: "black"}}
         >
           <Search />
         </Button>
