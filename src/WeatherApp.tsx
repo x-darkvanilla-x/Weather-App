@@ -121,6 +121,7 @@ const WeatherComponent: React.FC = () => {
                 src={ghost}
                 style={{ width: "100%", objectFit: "contain" }}
                 alt=""
+                loading="lazy"
               />
             </Box>
             <Typography variant="body1">{error}</Typography>
