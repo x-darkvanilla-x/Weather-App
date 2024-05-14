@@ -244,7 +244,7 @@ const WeatherComponent: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % stacks.length);
-    }, 5000); // Change the duration (in milliseconds) as needed
+    }, 3000); // Change the duration (in milliseconds) as needed
 
     return () => clearInterval(interval);
   }, [stacks.length]);
