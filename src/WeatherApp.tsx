@@ -1,9 +1,18 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Grow } from "@mui/material";
 
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AirIcon from "@mui/icons-material/Air";
-import {Opacity, Search } from "@mui/icons-material";
+import {
+  Coffee,
+  DarkMode,
+  Opacity,
+  Search,
+  Speed,
+  Thermostat,
+  WbSunny,
+} from "@mui/icons-material";
 import CompressIcon from "@mui/icons-material/Compress";
 
 import storm from "./Images/storm.png";
@@ -22,6 +31,223 @@ const WeatherComponent: React.FC = () => {
   const [location, setLocation] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const API_KEY = "932a5070f56c162da81b2e63067f3c36";
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const stacks = [
+    weatherData && (
+      <Stack
+        key={0}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <DeviceThermostatIcon />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.weather[0].main}
+            </Typography>
+            <Typography variant="caption">Weather</Typography>
+          </Stack>
+        </Stack>
+
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <Coffee />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.main.feels_like}°c
+            </Typography>
+            <Typography variant="caption">Feels Like</Typography>
+          </Stack>
+        </Stack>
+      </Stack>
+    ),
+    weatherData && (
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <Opacity />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.main.humidity}%
+            </Typography>
+            <Typography variant="caption">Humidity</Typography>
+          </Stack>
+        </Stack>
+
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <CompressIcon />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.main.pressure} hPa
+            </Typography>
+            <Typography variant="caption">Pressure</Typography>
+          </Stack>
+        </Stack>
+      </Stack>
+    ),
+    weatherData && (
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <Thermostat />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.main.temp_min}°c
+            </Typography>
+            <Typography variant="caption">Min Temp</Typography>
+          </Stack>
+        </Stack>
+
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <Thermostat />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.main.temp_max}°c
+            </Typography>
+            <Typography variant="caption">Max Temp</Typography>
+          </Stack>
+        </Stack>
+      </Stack>
+    ),
+    weatherData && (
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <AirIcon />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.wind.speed}m/s
+            </Typography>
+            <Typography variant="caption">Speed</Typography>
+          </Stack>
+        </Stack>
+
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <Speed />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {weatherData.wind.deg}°
+            </Typography>
+            <Typography variant="caption">Degree</Typography>
+          </Stack>
+        </Stack>
+      </Stack>
+    ),
+    weatherData && (
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <WbSunny />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
+            </Typography>
+            <Typography variant="caption">Sunrise</Typography>
+          </Stack>
+        </Stack>
+
+        <Stack direction={"row"} alignItems={"center"} gap={1}>
+          <Stack>
+            <DarkMode />
+          </Stack>
+          <Stack>
+            <Typography
+              variant="body1"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              {new Date(weatherData.sys.sunset * 1000).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
+            </Typography>
+            <Typography variant="caption">Sunset</Typography>
+          </Stack>
+        </Stack>
+      </Stack>
+    ),
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % stacks.length);
+    }, 5000); // Change the duration (in milliseconds) as needed
+
+    return () => clearInterval(interval);
+  }, [stacks.length]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -113,7 +339,7 @@ const WeatherComponent: React.FC = () => {
 
   if (!weatherData) {
     return (
-      <Stack gap={2} textAlign={"center"} sx={{padding: "10px"}}>
+      <Stack gap={2} textAlign={"center"} sx={{ padding: "10px" }}>
         {error ? (
           <Stack gap={2}>
             <Box sx={{ width: "150px", height: "150px", alignSelf: "center" }}>
@@ -130,37 +356,41 @@ const WeatherComponent: React.FC = () => {
           <Typography variant="body1">Loading...</Typography>
         )}
         <Stack
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-        gap={1}
-      >
-        <TextField
-          type="text"
-          placeholder="Enter location"
-          value={location}
-          onChange={handleLocationChange}
-          variant="standard"
-          sx={{ color: "white" }}
-          onKeyDown={handleKeyPress}
-        />
-        <Button
-          type="button"
-          variant="contained"
-          onClick={handleLocationSubmit}
-          sx={{ borderRadius: "50px", backgroundColor: "white", color: "black"}}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+          gap={1}
         >
-          <Search />
-        </Button>
-      </Stack>
+          <TextField
+            type="text"
+            placeholder="Enter location"
+            value={location}
+            onChange={handleLocationChange}
+            variant="standard"
+            sx={{ color: "white" }}
+            onKeyDown={handleKeyPress}
+          />
+          <Button
+            type="button"
+            variant="contained"
+            onClick={handleLocationSubmit}
+            sx={{
+              borderRadius: "50px",
+              backgroundColor: "white",
+              color: "black",
+            }}
+          >
+            <Search />
+          </Button>
+        </Stack>
       </Stack>
     );
   }
 
   return (
-    <Stack gap={2} textAlign={"center"} sx={{padding: "10px"}}>
+    <Stack gap={2} textAlign={"center"} sx={{ padding: "10px" }}>
       <Stack
         sx={{
           display: "flex",
@@ -181,13 +411,15 @@ const WeatherComponent: React.FC = () => {
           type="button"
           variant="contained"
           onClick={handleLocationSubmit}
-          sx={{ borderRadius: "50px", backgroundColor: "white", color: "black"}}
+          sx={{
+            borderRadius: "50px",
+            backgroundColor: "white",
+            color: "black",
+          }}
         >
           <Search />
         </Button>
       </Stack>
-
-      <Typography variant="body1" style={{}}></Typography>
 
       <Box sx={{ width: "150px", height: "150px", alignSelf: "center" }}>
         <img
@@ -212,51 +444,17 @@ const WeatherComponent: React.FC = () => {
         )}
       </Typography>
 
-      <Stack
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
-        <Typography
-          variant="body1"
-          gap={1}
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-          <DeviceThermostatIcon /> {weatherData.weather[0].main}
-        </Typography>
-        <Typography
-          gap={1}
-          variant="body1"
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-          <AirIcon /> {weatherData.wind.speed}
-        </Typography>
-      </Stack>
-
-      <Stack
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
-        <Typography
-          variant="body1"
-          gap={1}
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-          <Opacity /> {weatherData.main.humidity}%
-        </Typography>
-        <Typography
-          gap={1}
-          variant="body1"
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-          <CompressIcon /> {weatherData.main.pressure}
-        </Typography>
-      </Stack>
+      <>
+        {stacks.map((stack, index) => (
+          <Grow key={index} in={index === activeIndex} timeout={500}>
+            <Stack
+              style={{ display: index === activeIndex ? "block" : "none" }}
+            >
+              {stack}
+            </Stack>
+          </Grow>
+        ))}
+      </>
     </Stack>
   );
 };
