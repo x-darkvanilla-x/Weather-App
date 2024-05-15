@@ -1,5 +1,8 @@
 # WeatherComponent
 
+![Image](./src/Videos/WeatherApp.png)
+![Video](./src/Videos/WeatherApp.mp4)
+
 WeatherComponent is a React component that allows users to display current weather information based on their geolocation or a specific location.
 
 ## Features
